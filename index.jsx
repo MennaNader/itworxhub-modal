@@ -24,16 +24,20 @@ export default class Start extends React.Component {
           open={this.state.open}
           onCloseModal={this.onCloseModal}
           headerAction={<button>Hi</button>}
-          headerTitle={<button>Hi</button>}
+          headerTitle="Hi"
           headerAside={<button>Hi</button>}
           footerAction={<button>Hi</button>}
           footerAside={<button>Hi</button>}
+          headerClose
           centered
           fullHeight
           fullHeightMobile
           noFooter
           alert
           info
+          small
+          xsmall
+          large
         >
           <p>Fixture ain't afraid of JSX</p>
           <p>Fixture ain't afraid of nothin!</p>

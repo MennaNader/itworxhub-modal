@@ -1,5 +1,5 @@
 import React from "react";
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import noScroll from "no-scroll";
 import "./index.scss";
@@ -112,6 +112,8 @@ class HubModal extends React.Component {
       children: content,
       footerAction: action,
       footerAside: actionAside,
+      closeOnEsc,
+      closeOnOverlayClick,
       centered,
       fullHeight,
       fullHeightMobile,
@@ -119,21 +121,25 @@ class HubModal extends React.Component {
       alert,
       info,
       open,
+      small,
+      xsmall,
+      large,
       onCloseModal
     } = this.props;
     const isMobile = this.state.width <= 760;
+
     return open ? (
       <div
-        onClick={this.HandleClose}
+        onClick={closeOnOverlayClick ? this.HandleClose : null}
         className={
           fullHeightMobile && isMobile && !close
             ? "HubModal__overlay HubModal__overlay-full-height-mobile"
             : "HubModal__overlay"
         }
-        onMouseDown={this.onClickOverlay}
+        onMouseDown={closeOnEsc ? this.onClickOverlay : null}
       >
         <div
-          className={
+          className={`${
             fullHeightMobile && isMobile && !close
               ? !close
                 ? "HubModal HubModal-full-height-mobile HubModal-full"
@@ -141,16 +147,28 @@ class HubModal extends React.Component {
                   ? "HubModal HubModal--Centered HubModal-full-height-mobile"
                   : "HubModal HubModal-full-height-mobile"
               : centered ? "HubModal HubModal--Centered" : "HubModal"
-          }
+          } ${
+            close
+              ? large
+                ? "HubModal--large"
+                : small
+                  ? "HubModal--small"
+                  : xsmall ? "HubModal--xsmall" : "HubModal--medium"
+              : null
+          }`}
         >
           {icon || title || aside ? (
             <div className="HubModal__Header">
               {haction && (isMobile ? (close ? false : true) : false) ? (
                 <div className="HubModal__Header__Action">{haction}</div>
               ) : null}
-              <div className="HubModal__Header__Content">
-                {icon ? icon : null} {title ? title : null}
-              </div>
+              {icon || title ? (
+                <div className="HubModal__Header__Content">
+                  <h4>
+                    {icon ? icon : null} {title ? title : null}
+                  </h4>
+                </div>
+              ) : null}
               {aside && (isMobile ? (close ? false : true) : false) ? (
                 <div className="HubModal__Header__Aside">{aside}</div>
               ) : isMobile ? (
@@ -180,7 +198,7 @@ class HubModal extends React.Component {
             <div
               className={
                 alert
-                  ? "HubModal__Footer HubModal__Footer--aside"
+                  ? "HubModal__Footer HubModal__Footer--alert"
                   : info
                     ? "HubModal__Footer HubModal__Footer--centered"
                     : "HubModal__Footer"
@@ -200,21 +218,17 @@ class HubModal extends React.Component {
   };
 }
 
-// HubModal.propTypes = {
-//   closeOnEsc: PropTypes.bool,
-//   closeOnOverlayClick: PropTypes.bool,
-//   onClose: PropTypes.func.isRequired,
-//   open: PropTypes.bool.isRequired,
-//   children: PropTypes.node,
-//   little: PropTypes.bool,
-//   showCloseIcon: PropTypes.bool
-// };
+HubModal.propTypes = {
+  closeOnEsc: PropTypes.bool,
+  closeOnOverlayClick: PropTypes.bool,
+  onCloseModal: PropTypes.func.isRequired,
+  open: PropTypes.bool.isRequired,
+  children: PropTypes.node
+};
 
-// HubModal.defaultProps = {
-//   closeOnEsc: true,
-//   closeOnOverlayClick: true,
-//   showCloseIcon: true,
-//   children: null,
-//   little: false
-// };
+HubModal.defaultProps = {
+  closeOnEsc: true,
+  closeOnOverlayClick: true,
+  children: null
+};
 export default HubModal;

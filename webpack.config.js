@@ -80,7 +80,14 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
-      chunks: "all"
+      cacheGroups: {
+        styles: {
+          name: "styles",
+          test: /\.css$/,
+          chunks: "all",
+          enforce: true
+        }
+      }
     }
   },
   devServer: {

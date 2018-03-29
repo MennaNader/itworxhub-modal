@@ -1,6 +1,6 @@
 {
-    "name": "modal",
-    "version": "1.0.0",
+    "name": "itworx-hub-modal",
+    "version": "1.0.2",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -13,10 +13,6 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "@storybook/addon-actions": "^3.3.15",
-        "@storybook/addon-links": "^3.3.15",
-        "@storybook/addons": "^3.3.15",
-        "@storybook/react": "^3.3.15",
         "babel-cli": "^6.26.0",
         "babel-core": "^6.26.0",
         "babel-loader": "^7.1.4",
