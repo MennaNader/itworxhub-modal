@@ -1,4 +1,4 @@
-import App from "../../app.jsx";
+import App from "../../src/app.jsx";
 import React from "react";
 
 export default [
