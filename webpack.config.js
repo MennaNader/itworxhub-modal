@@ -16,7 +16,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   context: path.join(process.cwd(), ""),
-  entry: ["babel-polyfill", "./index.jsx"],
+  entry: ["babel-polyfill", "./example.jsx"],
 
   output: {
     filename: "[name].[hash].bundle.js",
