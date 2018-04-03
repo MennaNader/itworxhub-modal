@@ -101,10 +101,12 @@ module.exports = {
     hot: true // hot module replacement. Depends on HotModuleReplacementPlugin
   },
   plugins: [
-    new CleanWebpackPlugin(["dist"], { root: process.cwd() }),
+    new CleanWebpackPlugin(["dist"], {
+      root: process.cwd()
+    }),
     new UglifyJSPlugin(),
     new HtmlWebpackPlugin({
-      template: "index.html"
+      template: "src/index.html"
     }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
