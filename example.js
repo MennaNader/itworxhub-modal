@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import HubModal from "./index.jsx";
+import HubModal from "./index.js";
 
 export default class Start extends React.Component {
   state = {

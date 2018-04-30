@@ -12,11 +12,12 @@ const path = require("path");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+process.env.BABEL_ENV = 'development';
+process.env.NODE_ENV = 'development';
 module.exports = {
   context: path.join(process.cwd(), ""),
-  entry: ["babel-polyfill", "./example.jsx"],
+  entry: ["babel-polyfill", "./example.js"],
 
   output: {
     filename: "[name].[hash].bundle.js",
@@ -25,70 +26,31 @@ module.exports = {
     sourceMapFilename: "[name].map"
   },
   devtool: "source-map",
-  mode: "development",
   module: {
     rules: [
       {
-        test: /\.jsx$/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["es2016", "react", "es2015-ie"],
-            plugins: ["transform-class-properties"]
-          }
-        }
-      },
-      {
         test: /\.js$/,
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["es2016", "react", "es2015-ie"],
+            presets: ["env", "react-app", "es2015-ie"],
             plugins: ["transform-class-properties"]
           }
         }
-      },
-      {
-        enforce: "pre", //to check source files, not modified by other loaders (like babel-loader)
-        test: /\.js$/,
-        loader: "eslint-loader"
       },
       {
         test: /\.(scss|css)$/,
 
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: "css-loader",
-            options: {
-              sourceMap: true
-            }
-          },
-          {
-            loader: "sass-loader",
-            options: {
-              sourceMap: true
-            }
-          }
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: ['css-loader', 'sass-loader']
+        })
       }
     ]
   },
   resolve: {
     extensions: [".js"], // extensions that are used
     modules: [path.join(process.cwd(), ""), "node_modules"] // directories where to look for modules
-  },
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        styles: {
-          name: "styles",
-          test: /\.css$/,
-          chunks: "all",
-          enforce: true
-        }
-      }
-    }
   },
   devServer: {
     publicPath: "/",
@@ -108,12 +70,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "src/index.html"
     }),
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
+    new ExtractTextPlugin({
       filename: "[name].css",
-      chunkFilename: "[id].css"
+      allChunks: true
     }),
     new webpack.HotModuleReplacementPlugin()
-  ]
+  ],
+  performance: {
+    hints: false,
+  },
 };
