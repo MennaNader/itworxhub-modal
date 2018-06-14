@@ -154,7 +154,7 @@ class HubModal extends React.Component {
 								: small
 									? "HubModal--small"
 									: xsmall ? "HubModal--xsmall" : "HubModal--small"
-							: ""
+							: "HubModal--small"
 						}`}
 				>
 					{icon || title || aside ? (

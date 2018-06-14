@@ -1,23 +1,42 @@
+@import 'vendors/reset';
+@import 'base/global';
+@import 'base/typography';
+@import 'abstracts/variables';
+@import 'base/breakpoints';
+@import 'layout/grid';
+@import 'layout/home-page-layout';
+@import 'layout/people-layout';
+@import 'layout/groups-layout';
+@import 'components/index';
+
 .HubModal {
-    box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
     padding: 0;
     height: fit-content;
     position: relative;
-    top: 3vh;
+    -webkit-animation: modal-animation 0.5s ease;
     &--large {
-        width: 50rem;
+        max-width: 55rem;
+        width:100%;
+        margin:1rem;
     }
     &--medium {
         width: 45rem;
+        margin: 1rem;
     }
     &--small {
-        width: 30rem;
+        max-width: 30rem;
+        width:100%;
+        margin:1rem;
     }
     &--xsmall {
-        width: 24rem;
+        max-width: 24rem;
+        width:100%;
+        margin:1rem;
     }
     &__overlay {
-        background: rgba(55, 55, 55, 0.6);
+        background: rgba(0,0,0,0.6);
+        -webkit-animation: overlay-animation 0.5s ease;
         display: flex;
         position: fixed;
         top: 0;
@@ -43,18 +62,16 @@
         font-size: 14px;
         line-height: 21px;
         font-weight: 700 !important;
-        background: #f6f6f6;
+        background: #f0f0f0;
         border-bottom: 1px solid #ddd;
         display: flex;
         justify-content: space-between;
+        padding: 0.625rem 1rem;
         &__Action {
-            flex-grow: 1;
-            padding: 10px;
             color: #2199ca;
         }
         &__Content {
             flex-grow: 1;
-            padding: 10px;
             h4 {
                 margin: 0;
                 font-weight: 700;
@@ -66,13 +83,11 @@
             }
         }
         &__Aside {
-            padding: 10px;
         }
         &__close {
-            padding: 10px;
             &:before {
-                content: "×";
-                font-family: inherit;
+                content: '×';
+                font-family: fontawesomn;
                 font-size: 1.5rem;
                 font-weight: 700;
                 padding: 0.5em 0.25em;
@@ -92,7 +107,7 @@
         color: rgb(90, 90, 90);
         &-fullHeight {
             overflow: auto;
-            max-height: 80vh;
+            max-height: 77vh;
         }
         &:after {
             content: "";
@@ -103,26 +118,20 @@
     &__Footer {
         color: #5a5a5a;
         border-top: 1px solid #ddd;
-        background: #f6f6f6;
+        background: #f0f0f0;
         transition: all 300ms;
         padding: 1rem;
         display: flex;
         justify-content: space-between;
         &__Action {
-            flex-grow: 1;
+            flex-grow: 0;
         }
         &__Aside {}
         &--alert {
             justify-content: flex-end;
-            & .HubModal__Footer__Action {
-                flex-grow: 0;
-            }
         }
-        &--centered {
+        &--info {
             justify-content: center;
-            & .HubModal__Footer__Action {
-                flex-grow: 0;
-            }
         }
         &:hover {
             background: darken(#f6f6f6, 2%);
@@ -141,12 +150,37 @@
     }
 }
 
-@media only screen and (min-device-width: 375px) and (max-device-width: 812px) {
+@media only screen and (min-device-width: 320px) and (max-device-width: 812px) {
     .HubModal {
         &-full-height-mobile {
             width: 100vw !important;
             height: 100vh;
             top: 0;
+            &.HubModal--small {
+                margin: 0;
+            }
+            .HubModal__Header{
+                padding: 1.05rem 1rem;
+                line-height: 1.7rem;
+                .cancel-link{
+                    height: 1.7rem;
+                    line-height: 1;
+                    font-size: 1rem;
+                    border:0;
+                    background: none;
+                    color:#2199ca;
+                    padding: 0 1rem;
+                    margin: 0 -1rem;
+                    text-align: left;
+                }
+                h4{
+                    font-size: 1.125rem;
+                    text-align: center;
+                }
+                .HubModal__Header__Aside, .HubModal__Header__Action{
+                    width: 90px;
+                }
+            }
         }
         &__overlay {
             &-full-height-mobile {
@@ -162,4 +196,37 @@
             }
         }
     }
+}
+@media #{$sm}{
+    .HubModal{
+        &--large{
+            margin: 2rem;
+        }
+        &--small {
+            margin:2rem;
+        }
+        &--xsmall {
+            margin:2rem;
+        }
+    }
+}
+@keyframes modal-animation
+{
+  0% {
+    top: -20%;
+    opacity: 0;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+}
+@keyframes overlay-animation
+{
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

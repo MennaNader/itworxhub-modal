@@ -23,11 +23,11 @@ export default class Start extends React.Component {
         <HubModal
           open={this.state.open}
           onCloseModal={this.onCloseModal}
-          headerAction={<button>Hi</button>}
-          headerTitle="Hi"
-          headerAside={<button>Hi</button>}
-          footerAction={<button>Hi</button>}
-          footerAside={<button>Hi</button>}
+          headerAction={<button className="button cancel-link">Cancel</button>}
+          headerTitle="Create Event"
+          headerAside={<button className="button default-button FR small-button">Hi</button>}
+          footerAction={<button className="button default-button FR small-button">Hi</button>}
+          footerAside={<button className="button default-button FR small-button">Hi</button>}
           headerClose
           centered
           fullHeight
